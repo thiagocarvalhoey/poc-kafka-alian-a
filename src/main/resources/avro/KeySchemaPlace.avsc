@@ -1,0 +1,11 @@
+{
+  "fields": [
+    {
+      "name": "TransactionId",
+      "type": "int"
+    }
+  ],
+  "name": "KeySchema",
+  "namespace": "com.alianca.intercab.emp.transactionreturn",
+  "type": "record"
+}

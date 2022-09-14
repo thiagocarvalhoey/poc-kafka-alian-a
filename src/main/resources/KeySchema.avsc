@@ -1,0 +1,11 @@
+{
+  "fields": [
+    {
+      "name": "quotationId",
+      "type": "long"
+    }
+  ],
+  "name": "KeySchema",
+  "namespace": "com.alianca.intercab.emp.quotation",
+  "type": "record"
+}

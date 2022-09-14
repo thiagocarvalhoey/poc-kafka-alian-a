@@ -1,16 +1,25 @@
 package com.emp.demo;
 
-import com.alianca.intercab.emp.transactionreturn.Place;
+import com.alianca.intercab.emp.quotation.IntercabQuotation;
+import com.alianca.intercab.emp.quotation.IntercabQuotationV2;
+import com.alianca.intercab.emp.quotation.KeySchema;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.avro.Schema;
-import org.apache.avro.generic.GenericData;
-import org.apache.avro.generic.GenericRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.kafka.annotation.KafkaListener;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
+import scala.App;
+
+import javax.annotation.processing.Processor;
+import java.util.Properties;
 
 @Slf4j
 @Service
@@ -19,19 +28,25 @@ public class TopicProducer {
 
     private String topicName;
 
-    private final KafkaTemplate<String, Place> kafkaTemplate;
 
-    public void send(String message) {
-        topicName = "ANL.intercab.transactionreturn.topic.internal.any.v1";
-        log.info("Payload enviado: {}", message);
-
-        Place place = new Place();
-        place.setReturnCode("A");
-        place.setTransactionId(1);
-        place.setExternalSystemName("Teste");
+    @Autowired
+    private final KafkaTemplate<String, IntercabQuotationV2> kafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, IntercabQuotationV2> kafkaTemplate2;
+   public void send(IntercabQuotationV2 message) {
+     //topicName = "ANL.intercab.transactionreturn.topic.internal.any.v1";
+       topicName = "ANL.intercab.quotation.topic.internal.any.v2";
 
 
-        kafkaTemplate.send(topicName, place);
+       Message<IntercabQuotationV2> messagePay = MessageBuilder
+               .withPayload(message)
+               .setHeader(KafkaHeaders.TOPIC, topicName)
+               .build();
+
+       //kafkaTemplate.send(message);
+        kafkaTemplate.send( topicName,"1",message);
+
+
     }
 
 }
