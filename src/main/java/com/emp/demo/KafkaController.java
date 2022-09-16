@@ -38,7 +38,7 @@ public class KafkaController {
 
         IntercabQuotationV2 avro = IntercabQuotationV2.newBuilder()
                 .setQuotationId(1)
-                .setClientName("teste ClientName")
+                .setClientName("teste KLAUSSS")
                 .setStatusQuotation("Teste StatusQuotation")
                 .setPortOfLoad("Teste PortOfLoad")
                 .setPortOfDischarge("Teste PortOfDischarge")

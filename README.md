@@ -1,8 +1,6 @@
 Prova de conceito EMP  Aliança
 
-#########################################################
 Integração entre producer e EMP usando Kafka Client
-#########################################################
 
 1) Configuração de cerificados
    1) Instalar ferramenta (KeyStore Explorer) para inclusão dos certificados necessários. Este caso se aplica à máquinas com restrições de acesso ao portal confluent.
